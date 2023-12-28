@@ -1,0 +1,43 @@
+extend-exclude = ["docs/*"]
+
+fix = true
+show-fixes = true
+
+select = [
+  "ALL", # currently, all rules are selected and unused ones are excluded
+]
+
+unfixable = [
+  "ERA", # do not autoremove commented out code
+]
+
+ignore = [
+  "FBT",     # boolean input in functions is okay
+  "PLR0913", # many input arguments is okay as long as they are optional
+  "TD003",   # it's okay if there is no linked issue in TODO comments
+  "FIX",     # don't complain about TODO comments
+  "D106",    # don't complain about nested class docstring
+  "RET504",  # it's okay to assign to a variable and then return it separately in a function, it's more readable
+]
+
+line-length = 88 # compatible to `black`
+
+target-version = "py39"
+
+[extend-per-file-ignores]
+"tests/*" = [
+  "S101",    # don't warn about `assert` in tests
+  "INP",     # don't worry about __init__.py in the tests directory, it is not a package
+  "PLR2004", # magic values are okay in tests
+]
+"*.ipynb" = [
+  "D100",   # no need to provide file docstring
+  "ERA001", # for now, commented out code is okay in notebooks because we sometimes comment out different initial parameters
+  "B018",   # not assigning values to variables is common in notebooks to just print them in the cell's output
+  "SLF001", # we use notebooks to check out the implementations and verify the data, so it is okay to access private variables of classes
+  "T201",   # print() functions are okay
+]
+
+
+[pydocstyle]
+convention = "google"
