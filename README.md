@@ -18,7 +18,7 @@ Things we would like to achieve:
 
 - Everything about the project should be confined in the project code base. There should be no dependency on or confusion with packages that are locally installed on your system. This ensures consistency of the development environment.
 
-- Next, we must have specific style and code quality rules that are checked at every level of development. For this purpose, we config every formatter and linter we use in their local config files and have our IDE extensions and `pre-commit` hooks to check the code based on them. This ensures reproducibility of the development environment and guards the project quality rules.
+- Next, we must have specific style and code quality rules that are checked at every level of development. For this purpose, we config every formatter and linter we use in their local config files and have our IDE extensions and `pre-commit` hooks to check the code based on them. This ensures reproducibility of the development environment and guards the project code quality rules.
 
 - We encourage static typing and type annotation for functions. Python as a dynamic typed language does not completely follow this practice but has enough tools we can use to force this practice. We use a combination of linting rules and static type checkers to achieve that.
 
