@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "opinionated-python"
+version = "0.0.1"
+description = "An awesome package!"
+authors = ["Siavash Davani <siavash.davani@gmail.com>"]
+license = ""
+keywords = ["python", "package"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.9.*"
+# project-specific dependencies here
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "3.4.*"
+
+[tool.poetry.group.quality.dependencies]
+ruff = "0.1.*"    # linting
+pyright = "1.1.*" # static typing
+black = "23.9.*"  # styling
+
+[tool.poetry.group.coverage.dependencies]
+pytest = "7.4.*"
+pytest-cov = "4.1.*"
+
+[tool.poetry.group.documentation.dependencies]
+mkdocs = "1.5.*"          # documentation engine
+mkdocstrings-python = "*" # python docstring parser
+mkdocs-material = "9.*"   # theme for mkdocs
+
+[tool.poetry.group.visualization.dependencies]
+ipykernel = "6.*" # it is needed for jupyter notebooks in vscode
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

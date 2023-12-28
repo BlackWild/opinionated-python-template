@@ -1,0 +1,3 @@
+[virtualenvs]
+create = true
+in-project = true # This will force poetry to create a local directory for dependencies inside project's folder
