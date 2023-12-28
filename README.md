@@ -4,6 +4,8 @@ This repository contains an opinionated template structure for modern Python pro
 
 The aim is not to overwhelm you with millions of tools which makes the decision-making difficult. I also try to explain the decisions behind choosing a tool to give some context to the decisions.
 
+It uses: `Docker`, `Development Containers`, `poetry`, `ruff`, `black`, `pyright`, `pytest`, `mkdocs`, and more!
+
 ## Intended audience
 
 This project is intended for intermediate developers who have acquired the basic knowledge of Python and programming in general but are struggling finding a good starting point for their Python projects in terms of code quality.
