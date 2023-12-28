@@ -2,7 +2,7 @@
 
 This repository contains an opinionated template structure for modern Python projects. The goal is to use latest frameworks and technologies introduced in the Python ecosystem without compromising stability.
 
-The aim is not to overwhelm you with millions of tools which makes the decision-making difficult. However, I also try to explain the decisions behind choosing a tool to give some context to the decisions.
+The aim is not to overwhelm you with millions of tools which makes the decision-making difficult. I also try to explain the decisions behind choosing a tool to give some context to the decisions.
 
 ## Intended audience
 
@@ -12,34 +12,36 @@ With that being said, I try to write everything in simple and understandable ter
 
 ## Main ideas
 
-There are a few basic principles that we follow to design the structure of the codebase. If you find them appealing, it means you will enjoy and appreciate using this template.
-
-- Standard Python, despite being a very popular programming language, surprisingly lacks the developer experience (DX) it deserves.
-- The goal of this template is to provide this DX ....
+There are a few basic principles that we follow to design the structure of the codebase. If you find them appealing, it means you will enjoy and appreciate using this template. We believe the standard Python, despite being a very popular programming language, surprisingly lacks the developer experience (DX) it deserves. The goal of this template is to provide this DX.
 
 Things we would like to achieve:
 
 - Everything about the project should be confined in the project code base. There should be no dependency on or confusion with packages that are locally installed on your system. This ensures consistency of the development environment.
 
-- Next, we must have specific style and code quality rules that are checked at every level of development.
+- Next, we must have specific style and code quality rules that are checked at every level of development. For this purpose, we config every formatter and linter we use in their local config files and have our IDE extensions and `pre-commit` hooks to check the code based on them. This ensures reproducibility of the development environment and guards the project quality rules.
+
+- We encourage static typing and type annotation for functions. Python as a dynamic typed language does not completely follow this practice but has enough tools we can use to force this practice. We use a combination of linting rules and static type checkers to achieve that.
+
+- We also include other important parts like unit testing, documentation, and so on to provide a rich set of tools for your project.
 
 # How to use this template?
 
-Here, you will find a short version of how to use this project template. However, you are strongly recommended to read through The Structure [link??] section down below to fully understand the decisions behind the tools used.
+Here, you will find a short version of how to use this project template. However, you are strongly recommended to read through [The Structure](#the-structure) section down below to fully understand the decisions behind the tools used.
 
 You need to have these software installed on your computer:
 
-- Visual Studio Code [link]
-  - `Dev Containers` extension [link]
-- Docker [link]
-- Git [link]
+- Visual Studio Code (link)[https://code.visualstudio.com]
+  - `Dev Containers` extension (link)[https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers]
+- Docker Desktop (link)[https://www.docker.com/products/docker-desktop/]
+- Git
 
 Nothing more is required, not even Python. Everything will be handled for you by the above tools. Docker prepares the development environment and vscode interacts with it.
 
-To start using the template, you need to download the project via the release section here [????]. It has everything included but you need to change a few things before starting
+To start using the template, you need to download the code repository as a zip file, extract it in any folder you want, initialize a git repository in it, and start developing your project. It has everything included but you need to change a few things before starting
 
 Required changes:
 
+- In the template, the name of the project is set to `opinionated_python`, feel free to change this and the corresponding folder in the `src/` folder to whatever you like
 - Change the project details such as name, description, author and so on in the `pyproject.toml` file.
 
 Optional changes:
@@ -48,13 +50,27 @@ Optional changes:
 
 > If you change the `python` version, you would also need to change the python package dependency in the `pyproject.toml` file accordingly.
 
+Finally:
+
+- Now, you are ready to go. You just need to open the folder in vscode. Having the `Dev Containers` extension installed, it will automatically prompt you to open the project in the dev container. Click yes, and wait for the container to start.
+- After the container starts, you have your python dev environment ready. You can run
+  ```bash
+  poetry install
+  ```
+  to install the dependencies and run
+  ```bash
+  poetry add ***
+  ```
+  to add any package to your project dependencies.
+- Have fun developing your project!
+
 # The structure
 
-Let us go through the structure that is implemented in this repo. The logic of building the structure goes more or less in the same order as introduced in the following.
+Let us go through the structure of this template. The logic of building the structure goes more or less in the same order as introduced in the following.
 
 ## Development environment
 
-The main point here is to contain everything about the project inside the codebase and have it reproducible. Everything should run on any computer the same. We use the following for this purpose.
+The main point here is to contain everything about the project inside the codebase and make it reproducible. Everything should run on any computer the same. We use the following for this purpose.
 
 ### Version control
 
@@ -72,13 +88,15 @@ This is defined in the `.devcontainer` folder. It consists of a basic `devcontai
 
 We use somewhat fixed versions for the things we install in order to avoid breaking changes in Python updates. The versions are set in the `devcontainer.json` filed and used when building the Docker development container image.
 
+The Docker image is just a base `python` image with `pipx` and `poetry` installed in it.
+
 ## Package structure
 
 Next, we need to design a structure for the Python package.
 
 ### On avoiding `pip`
 
-We don't use `pip` directly. The reason is that we believe it is not a very stable tool to rely on for proper packaging. We want absolute control over the dependency packages we install and the location of installation. Modern development practice suggests installing dependency packages locally in the project folder and not system-wide.
+We don't use `pip` directly. The reason is that we believe it is not a very stable tool to rely on for proper packaging. We want absolute control over the dependency packages we install and the location of the installation. Modern development practice suggests installing dependency packages locally in the project folder and not system-wide.
 
 ### Package manager
 
@@ -86,11 +104,11 @@ We use `poetry` as our package manager. It handles installing dependencies, buil
 
 To have better control over project configuration, we separate the Python project configuration and `poetry`-specific configs in different files. For the project, we use the standard `pyproject.toml` file and keep `poetry` configs in the `poetry.toml` file.
 
-It is important to force `poetry` to install all the packages locally in the project folder. We use the `in-project = true` flag in the `poetry.toml` config which will make `poetry` creating a local `.venv` folder. Every dependency package is then installed there and it works similar to the `node_modules` folder in JavaScript.
+It is important to force `poetry` to install all the packages locally in the project folder. We use the `in-project = true` flag in the `poetry.toml` config which will make `poetry` create a local `.venv` folder. Every dependency package is then installed there and it works similar to the `node_modules` folder in JavaScript.
 
 ## Code quality
 
-We use a few tools to keep the code high quality. Each tool will have its own config file in the project and their corresponding vscode extension will be automatically installed during the Development Container startup.
+We use a few tools to keep the code high-quality. Each tool will have its own config file in the project and their corresponding vscode extension will be automatically installed during the Development Container startup.
 
 It is also important to note that the code quality checks are done at several levels. First, locally by the vscode extensions. Second, before committing changed files to git using `pre-commit`, and lastly by GitHub Actions on the whole project (not implemented yet). This helps guarding the code quality rules defined for the project and ensures that you have less headache looking for inconsistencies in code as the project grows large.
 
