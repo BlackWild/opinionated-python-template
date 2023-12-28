@@ -49,19 +49,20 @@ Optional changes:
 - Check the versions of `python`, `pipx`, and `poetry` in the `.devcontainer/devcontainer.json` and see if your project needs to change them. I suggest not changing them unless you absolutely need to.
 
 > If you change the `python` version, you would also need to change the python package dependency in the `pyproject.toml` file accordingly.
+> Also as a general rule, feel free to change the versions of the default tools (linter, formatter, ...) in the `pyproject.toml` file if you would like to. It is not guarantied that the versions in the template are the latest. If you decide to change the versions, I suggest you use somewhat fixed versions in order to avoid breaking changes in future updates of the packages. You might also want to change the corresponding versions in the `pre-commit` config file at `.pre-commit-config.yaml` accordingly.
 
 Finally:
 
-- Now, you are ready to go. You just need to open the folder in vscode. Having the `Dev Containers` extension installed, it will automatically prompt you to open the project in the dev container. Click yes, and wait for the container to start.
+- Now, you are ready to go. You just need to open the folder in vscode. Having the `Dev Containers` extension installed, it will automatically prompt you to open the project in the dev container. Click yes, and wait for the container to start (make sure Docker is running beforehand).
 - After the container starts, you have your python dev environment ready. You can run
   ```bash
   poetry install
   ```
-  to install the dependencies and run
+  to install the dependencies (do this in the beginning to install the DX tools). You can run
   ```bash
   poetry add ***
   ```
-  to add any package to your project dependencies.
+  to add any package to your project dependencies. For more commands, you can read `poetry` documentation at [here](https://python-poetry.org/docs/)
 - Have fun developing your project!
 
 # The structure
