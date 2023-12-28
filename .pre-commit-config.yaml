@@ -1,0 +1,34 @@
+repos:
+  # spell-check
+  - repo: https://github.com/streetsidesoftware/cspell-cli
+    rev: v8.1.1
+    hooks:
+      - id: cspell
+
+  # ruff
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.6
+    hooks:
+      - id: ruff
+        args: []
+
+  # black
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 23.9.1
+    hooks:
+      - id: black
+        args: []
+
+  # pyright
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.331
+    hooks:
+      - id: pyright
+
+  # prettier
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.0.3
+    hooks:
+      - id: prettier
+        # By default, all supported files are checked. Otherwise you need to specify
+        # types_or: [css, javascript]
