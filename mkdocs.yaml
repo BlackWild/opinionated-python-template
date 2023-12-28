@@ -1,0 +1,16 @@
+site_name: "Docs"
+
+theme:
+  name: "material"
+  features:
+    - navigation.tabs # puts each item in the nav section as tabs in the header
+
+nav:
+  - Get Started:
+      - Welcome: index.md
+  - API:
+      - Reference: api/reference.md
+
+plugins:
+  - search
+  - mkdocstrings # enables api reference generation using docstrings and type annotations
