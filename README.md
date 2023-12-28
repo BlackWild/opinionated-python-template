@@ -86,13 +86,13 @@ We use Visual Studio Code.
 
 ### Development container
 
-We would like to isolate everything to the project itself. This means we don't want to even install Python itself on the computer. For that, we use development containers. We need `Docker` and `Development Containers` to do the job.
+We would like to isolate everything inside the project codebase itself. This means we don't want to even install Python on the computer. The complete development environment runs inside a docker container. We need `Docker` and `Development Containers` to do the job. This is a replacement for the virtual environments currently used in most python projects. We believe Development Containers are a better replacement because they provide absolute control and reproducibility of the development environment and enables using modern cloud tools like GitHub's Codespaces.
 
-This is defined in the `.devcontainer` folder. It consists of a basic `devcontainer.json` file also including the suggested vscode extensions for the environment and a `Dockerfile`.
+This is defined in the `.devcontainer` folder. It consists of a basic `devcontainer.json` file also including the suggested vscode extensions for the environment and a `Dockerfile`. Every time we open the project using vscode and the `Dev Containers` extension, vscode will start the docker container and all the required extensions for a python projects are installed automatically. You can use the integrated terminal in vscode to access the terminal of the container and directly run commands there. This is how you access all the installed packages and the python command-line itself without installing them on your computer.
 
-We use somewhat fixed versions for the things we install in order to avoid breaking changes in Python updates. The versions are set in the `devcontainer.json` filed and used when building the Docker development container image.
+We use somewhat fixed versions for the things we install in the container in order to avoid breaking changes after Python updates. The versions are set in the `devcontainer.json` file and used when building the Docker development container image.
 
-The Docker image is just a base `python` image with `pipx` and `poetry` installed in it.
+The Docker image is not complicated at all; it is just a base `python` image with `pipx` and `poetry` installed in it.
 
 ## Package structure
 

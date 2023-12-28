@@ -6,6 +6,7 @@
     "astype",
     "autoremove",
     "codemirror",
+    "codespaces",
     "complexfloating",
     "devcontainer",
     "docstrings",
