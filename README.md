@@ -30,9 +30,9 @@ Here, you will find a short version of how to use this project template. However
 
 You need to have these software installed on your computer:
 
-- Visual Studio Code (link)[https://code.visualstudio.com]
-  - `Dev Containers` extension (link)[https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers]
-- Docker Desktop (link)[https://www.docker.com/products/docker-desktop/]
+- Visual Studio Code [link](https://code.visualstudio.com)
+  - `Dev Containers` extension [link](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- Docker Desktop [link](https://www.docker.com/products/docker-desktop/)
 - Git
 
 Nothing more is required, not even Python. Everything will be handled for you by the above tools. Docker prepares the development environment and vscode interacts with it.
