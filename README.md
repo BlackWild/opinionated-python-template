@@ -1,4 +1,4 @@
-# About this project?
+# About this project
 
 This repository contains an opinionated template structure for modern Python projects. The goal is to use latest frameworks and technologies introduced in the Python ecosystem without compromising stability.
 
