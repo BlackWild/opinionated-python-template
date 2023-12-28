@@ -1,6 +1,8 @@
-# What is this?
+# About this project?
 
-This repository contains an opinionated structure for modern Python projects. The goal is to use latest frameworks and technologies introduced in the Python ecosystem without compromising stability.
+This repository contains an opinionated template structure for modern Python projects. The goal is to use latest frameworks and technologies introduced in the Python ecosystem without compromising stability.
+
+The aim is not to overwhelm you with millions of tools which makes the decision-making difficult. However, I also try to explain the decisions behind choosing a tool to give some context to the decisions.
 
 ## Intended audience
 
@@ -10,13 +12,20 @@ With that being said, I try to write everything in simple and understandable ter
 
 ## Main ideas
 
-There are a few basic principles that we follow to design the structure of the codebase. If you find them appealing, it means you will enjoy and appreciate using this repo.
+There are a few basic principles that we follow to design the structure of the codebase. If you find them appealing, it means you will enjoy and appreciate using this template.
 
 - Standard Python, despite being a very popular programming language, surprisingly lacks the developer experience (DX) it deserves.
+- The goal of this template is to provide this DX ....
 
-# How to use this?
+Things we would like to achieve:
 
-Here, you will find a short version of how to use this project template. However, you are strongly suggested to read through The Structure [link??] section to fully understand the decisions behind the tools used.
+- Everything about the project should be confined in the project code base. There should be no dependency on or confusion with packages that are locally installed on your system. This ensures consistency of the development environment.
+
+- Next, we must have specific style and code quality rules that are checked at every level of development.
+
+# How to use this template?
+
+Here, you will find a short version of how to use this project template. However, you are strongly recommended to read through The Structure [link??] section down below to fully understand the decisions behind the tools used.
 
 You need to have these software installed on your computer:
 
@@ -41,7 +50,7 @@ Optional changes:
 
 # The structure
 
-Let us go through the structure that is implemented in this repo. The logic of building the structure goes more or less in the same order as introduced int he following.
+Let us go through the structure that is implemented in this repo. The logic of building the structure goes more or less in the same order as introduced in the following.
 
 ## Development environment
 
@@ -83,38 +92,137 @@ It is important to force `poetry` to install all the packages locally in the pro
 
 We use a few tools to keep the code high quality. Each tool will have its own config file in the project and their corresponding vscode extension will be automatically installed during the Development Container startup.
 
-It is also important to note that the code quality checks are done at several levels. First, locally by the vscode extensions. Second, before committing changed files to git using `pre-commit`, and lastly by GitHub Actions on the whole project [???]. This helps guarding the code quality rules defined for the project and ensures that you have less headache looking for inconsistencies in code as the project grows large.
+It is also important to note that the code quality checks are done at several levels. First, locally by the vscode extensions. Second, before committing changed files to git using `pre-commit`, and lastly by GitHub Actions on the whole project (not implemented yet). This helps guarding the code quality rules defined for the project and ensures that you have less headache looking for inconsistencies in code as the project grows large.
 
 ### Linting
 
-We use `ruff`. It is fast and reliable.
+We use `ruff`. It is fast and reliable. Configuration file is at `ruff.toml`. In the current implementation of the template, all linting rules are selected and a few unused ones are explicitly excluded. I suggest you also follow the same practice and try to exclude rules you don't like while developing your project. You must have compelling reasons for excluding a rule.
 
 ### Static typing
 
+For static typing, we use `pyright`.
+
+Some of the rules like function input and return annotation are also checked through `ruff`, but `pyright` also checks if the annotations are actually correct by analyzing the types. We use the strict mode.
+
+The configurations for static typing is located at the `pyrightconfig.json` file.
+
+> The decision of choosing `pyright` is partly because we wanted to use vscode's Pylance language server and it is based on `pyright`. In order to keep everything consistent, we set pre-commit hooks with `pyright` and use the Pylance extension while coding in the IDE. This is how we make `pyright` and Pylance work together (otherwise, the two pyright and Pylance extensions of vscode do not work together).
+
 ### Style
+
+For styling, we use `black`. It is already highly opinionated and there is no configuration file corresponding to it in this template.
 
 ## Documentation
 
+Here, you will find the tools used for proper documentation in this template.
+
 ### Code documentation
 
+For code documentation we use `docstring`s (`google` style convention). This means that we require all files, classes, and functions to have `docstring`s as well as type annotations so that the project documentation website can be generated based on them.
+
+Do not include type definitions in the `docstring`s and have type definitions only in the python code files. The project documentation tool will recognize them and generate api documentations correctly.
+
+The `docstring` standards are checked by our linter `ruff` so you can use the warnings and hints to keep the code and the `docstring`s neat.
+
 ### Project documentation
+
+The documentation of the project is created using `mkdocs`.
+
+The project documentation has two parts:
+
+- Static: a series of Markdown files in the `docs/` directory of the project which includes tutorials and guides and the whole structure of the documentation site
+- Dynamic: which is generated automatically using the `mkdocstrings-python` package when `mkdocs` is generating the documentation website. `mkdocstrings` scans the source codes of the project and generates api references using the type annotations and docstrings of functions and classes defined in the code. This means that you should to write proper docstrings for everything.
+
+We use the `mkdocs-material` theme for the documentation website. The package is actually much more than just a theme and has a lot of built-in features that we can use.
+
+##### How to use `mkdocs`
+
+To start the watcher and generate the documentation website temporarily, you should use
+
+```bash
+mkdocs serve
+```
+
+This command will build the site and watch for changes, and will serve it on localhost. The exact IP and port will be printed in console after running this command.
+
+Also to generate the whole site you can use the command
+
+```bash
+mkdocs build
+```
+
+This will generate the complete deployable website in the local folder. Do not commit the generated site to git.
 
 ## Repository management
 
 ### Pre-commit hooks
 
+In order to prevent unchecked code to be committed to the repo, we use `pre-commit` hooks. The hooks are designed to work with local configuration files of the code quality tools.
+
+IMPORTANT:
+In any copy of this template on your local development machine, you must run
+
+```bash
+pre-commit install
+```
+
+so that the hooks are installed in git.
+
 ### CI/CD
+
+To be added...
 
 ## Unit testing
 
-### Test framework
+Here, you will find the tools used in this template for unit testing and coverage.
+
+### Unit testing framework
+
+For unit testing, we use `pytest`.
+
+All the test files are stored in the `tests/` directory. Keep in mind that `pytest` will automatically look for tests in that directory but you should pay attention to these points:
+
+- For `pytest` to collect the test, you should prefix the name of the test files with `test_*.py`
+- The name of very function to test should start with `test_*` and every class name should start with `Test_*`
+
+You can use the command
+
+```bash
+pytest
+```
+
+to check out the test results.
 
 ### Code coverage
 
+For code coverage, we use `pytest-cov`, an extension for `pytest`. It is based on another popular package `coverage` and it actually installs the binaries of `coverage` so you can also use that in your terminal.
+
+Anyways, in order to generate coverage reports you should run
+
+```bash
+pytest --cov
+```
+
+This will print the report in terminal and generate a `.coverage` report file.
+
 ## Miscellaneous tools
+
+Here, you will find other tools included in this template.
 
 ### Editor configuration
 
+We use `EditorConfig` to ensure consistency of handling files and general stylistic guidelines across IDEs. It is configured via the `.editorconfig` file.
+
 ### Other styling
 
+Style and file formatters act in this order:
+
+- Python files are formatted using `black`
+- `.toml` configure files are formatted using the vscode extension
+- All other files in the project are formatted using `prettier`
+
 ### Spellchecking
+
+For spell checking, we use Street Side Software's `cspell`. It has a vscode extension as well as a `pre-commit` hook which we have set up. It uses the local `cspell.json` config file.
+
+This means it is a good idea to add any unrecognized spelling specific to your project to the `cspell.json`'s word list so that it is shared with everyone working on the project.
