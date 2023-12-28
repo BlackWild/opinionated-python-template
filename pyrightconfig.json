@@ -1,0 +1,8 @@
+{
+  "typeCheckingMode": "strict",
+  "include": ["src", "tests"],
+  "venv": ".venv", // link to local virtual environment so that `pyright` can find local installed packages during the `pre-commit` hook
+  "venvPath": ".",
+  "reportMissingTypeStubs": "information", // some imported packages do not provide type definitions yet
+  "pythonVersion": "3.9"
+}
