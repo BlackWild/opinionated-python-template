@@ -246,3 +246,7 @@ Style and file formatters act in this order:
 For spell checking, we use Street Side Software's `cspell`. It has a vscode extension as well as a `pre-commit` hook which we have set up. It uses the local `cspell.json` config file.
 
 This means it is a good idea to add any unrecognized spelling specific to your project to the `cspell.json`'s word list so that it is shared with everyone working on the project.
+
+# Contribution
+
+Feel free to open an issue in the project repo [here](https://github.com/BlackWild/opinionated-python-template/issues).
