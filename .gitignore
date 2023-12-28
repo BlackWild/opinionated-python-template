@@ -1,0 +1,6 @@
+# dependencies
+.venv
+
+# cache
+.*_cache
+__pycache__
